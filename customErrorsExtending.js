@@ -93,3 +93,25 @@ try {
     }
   }
 }
+
+{
+  //AUTONAMING THE ERROR NAME CLASS
+  class MyError extends Error {
+    constructor(message) {
+      super(message);
+      this.name = this.constructor.name; // use this.constructor.name
+    }
+  }
+
+  class ValidationError extends MyError {}
+
+  class PropertyRequiredError extends ValidationError {
+    constructor(property) {
+      super('No property: ' + property);
+      this.property = property;
+    }
+  }
+
+  // name is correct
+  console.log(new PropertyRequiredError('field').name); // PropertyRequiredError
+}
