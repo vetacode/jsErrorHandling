@@ -135,10 +135,30 @@ try {
       throw err; // rethrow (*)
     }
   }
-  //then re-try..catch using readData
+}
+
+//re-try..catch using readData at the outer env
+
+{
+  function readData() {
+    let json = '{"umur": 20}';
+
+    try {
+      let user = JSON.parse(json);
+      console.log(user);
+      if (!user.umur) {
+        throw new SyntaxError('Ada error Syntax' + err.name);
+      }
+
+      blablalba;
+      console.log(user.name);
+    } catch (err) {
+      if (!(err instanceof SyntaxError)) throw err;
+    }
+  }
   try {
     readData();
   } catch (err) {
-    console.log('External catch got:' + err);
+    console.log('External catch got: ' + err);
   }
 }
