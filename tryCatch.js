@@ -162,3 +162,78 @@ try {
     console.log('External catch got: ' + err);
   }
 }
+
+//TRY..CATCH..FINALLY
+/*
+try {
+   ... try to execute the code ...
+} catch (err) {
+   ... handle errors ...
+} finally {
+   ... execute always ...
+}
+*/
+
+try {
+  console.log('try');
+  console.log('string' == true);
+  if ('Make an error?' == true) BAD_CODE();
+} catch (err) {
+  console.log('catch');
+} finally {
+  console.log('finally');
+}
+
+//Fibonacci
+let num = 3;
+
+let diff, result;
+
+function fib(n) {
+  if (n < 0 || Math.trunc(n) != n) {
+    throw new Error('Must not be negative, and also an integer.');
+  }
+  return n <= 1 ? n : fib(n - 1) + fib(n - 2);
+}
+
+let start = Date.now();
+
+try {
+  result = fib(num);
+} catch (err) {
+  console.log(err.message);
+  result = 0;
+} finally {
+  diff = Date.now() - start;
+}
+
+console.log(result || 'error occurred');
+
+console.log(`execution took ${diff}ms`);
+
+//Fastest Fibo O(log n), big nums
+function fib(n) {
+  if (n < 0 || Math.trunc(n) !== n) {
+    throw new Error('Invalid input');
+  }
+
+  function fibFast(n) {
+    if (n === 0) return [0n, 1n];
+
+    const [a, b] = fibFast(Math.floor(n / 2));
+    const c = a * (2n * b - a);
+    const d = a * a + b * b;
+
+    if (n % 2 === 0) {
+      return [c, d];
+    } else {
+      return [d, c + d];
+    }
+  }
+
+  return fibFast(n)[0];
+}
+
+console.log(fib(111)); // Instant
+console.log(fib(100000)); // Instant
+console.log(fib(1000000)); // Still extremely fast
