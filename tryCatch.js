@@ -68,3 +68,23 @@ try {
   // The error is converted to string as "name: message"
   console.log(err); // ReferenceError: lalala is not defined
 }
+
+//Optional “catch” binding
+try {
+  // ...
+} catch {
+  // <-- without (err): if we dont need error details
+  // ...
+}
+
+//USE CASES
+let json = '{bad json files}';
+
+try {
+  let user = JSON.parse(json);
+  console.log(user.name);
+} catch (err) {
+  console.log(err.name);
+  console.log(err.message);
+  console.log(`Maaf, terjadi error: ${err.name}, coba reload kembali`);
+}
