@@ -98,10 +98,47 @@ try {
     let user = JSON.parse(json);
 
     if (!user.name) {
-      throw new SyntaxError('Incomplete data: no name');
+      throw new SyntaxError('Incomplete data: no name'); //error throws here coz no name props from JSON file
     }
-    console.log(user.name);
+    console.log(user.name); //this not runs
   } catch (err) {
     console.log(`JSON Error: ${err.message}`);
+  }
+}
+
+//Rethrowing
+//Check the ERROR TYPE using "instanceof"
+try {
+  user = {};
+} catch (err) {
+  if (err instanceof ReferenceError) {
+    console.log('Reference Error');
+  }
+}
+
+{
+  let json = '{ "age": 30 }'; // incomplete data
+  try {
+    let user = JSON.parse(json);
+
+    if (!user.name) {
+      throw new SyntaxError('Incomplete data: no name');
+    }
+
+    blabla(); // unexpected error
+
+    console.log(user.name);
+  } catch (err) {
+    if (err instanceof SyntaxError) {
+      console.log('JSON Error: ' + err.message);
+    } else {
+      throw err; // rethrow (*)
+    }
+  }
+  //then re-try..catch using readData
+  try {
+    readData();
+  } catch (err) {
+    console.log('External catch got:' + err);
   }
 }
