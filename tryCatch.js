@@ -88,3 +88,20 @@ try {
   console.log(err.message);
   console.log(`Maaf, terjadi error: ${err.name}, coba reload kembali`);
 }
+
+//Throwing our own errors
+//SYNTAX: throw <error object>
+{
+  let json = '{ "age" : 25 }';
+
+  try {
+    let user = JSON.parse(json);
+
+    if (!user.name) {
+      throw new SyntaxError('Incomplete data: no name');
+    }
+    console.log(user.name);
+  } catch (err) {
+    console.log(`JSON Error: ${err.message}`);
+  }
+}
