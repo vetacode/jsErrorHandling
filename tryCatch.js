@@ -53,3 +53,18 @@ setTimeout(function () {
     console.log('error is caught here!');
   }
 }, 1000);
+
+//Error OBJECT
+//has 2 main props: name and message
+//additional prop: stack: a string with info of current call stack, use for debugging
+try {
+  lalala; // error, variable is not defined!
+} catch (err) {
+  console.log(err.name); // ReferenceError
+  console.log(err.message); // lalala is not defined
+  console.log(err.stack); // ReferenceError: lalala is not defined at (...call stack)
+
+  // Can also show an error as a whole
+  // The error is converted to string as "name: message"
+  console.log(err); // ReferenceError: lalala is not defined
+}
