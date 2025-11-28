@@ -237,3 +237,60 @@ function fib(n) {
 console.log(fib(111)); // Instant
 console.log(fib(100000)); // Instant
 console.log(fib(1000000)); // Still extremely fast
+
+//Try..finally
+function func() {
+  // start doing something that needs completion (like measurements)
+  try {
+    // ...
+  } finally {
+    // complete that thing even if all dies
+  }
+}
+
+/**TASK
+ * Finally or just the code?
+importance: 5
+Compare the two code fragments.
+
+The first one uses finally to execute the code after try...catch:
+
+try {
+  work work
+} catch (err) {
+  handle errors
+} finally {
+  cleanup the working space
+}
+The second fragment puts the cleaning right after try...catch:
+
+try {
+  work work
+} catch (err) {
+  handle errors
+}
+
+cleanup the working space
+We definitely need the cleanup after the work, doesn’t matter if there was an error or not.
+
+Is there an advantage here in using finally or both code fragments are equal? If there is such an advantage, then give an example when it matters.
+ */
+
+function f() {
+  try {
+    console.log('start');
+    throw new Error('an error');
+  } catch (err) {
+    // ...
+    console.log('string' == true);
+    if ("can't handle the error") {
+      //truthy
+      console.log('runs');
+      throw err;
+    }
+  } finally {
+    console.log('cleanup!');
+  }
+}
+
+f(); // cleanup!
